@@ -11,9 +11,11 @@ int main() {
     float populationDensity_1, populationDensity_2;
     float pibPerCapita_1, pibPerCapita_2;
 
+    char menuOptions[6][50] = {"População", "Area", "PIB", "Pontos Turísticos", "Densidade Populacional", "PIB per Capita"};
+
     printf("Digite o codigo do estado: \n");
     scanf("%s", state_1);
-    
+
     printf("Digite o codigo da cidade: \n");
     scanf("%s", code_1);
 
@@ -34,19 +36,12 @@ int main() {
 
     populationDensity_1 = population_1 / area_1;
     pibPerCapita_1 = pib_1 / population_1;
-    
-    printf("Codigo da cidade: %s\n", code_1);
-    printf("Nome da cidade: %s\n", name_1);
-    printf("Populacao da cidade: %d\n", population_1);
-    printf("Area da cidade: %.2f\n", area_1);
-    printf("PIB da cidade: %.2f\n", pib_1);
-    printf("Numero de pontos turisticos da cidade: %d\n", touristAttractionAmount_1);
 
     printf("-------------------------------------\n");
 
     printf("Digite o codigo do estado: \n");
     scanf("%s", state_2);
-    
+
     printf("Digite o codigo da cidade: \n");
     scanf("%s", code_2);
 
@@ -67,7 +62,20 @@ int main() {
 
     populationDensity_2 = population_2 / area_2;
     pibPerCapita_2 = pib_2 / population_2;
-    
+
+    printf("-------------------------------------\n");
+
+    printf("Cidade 1\n");
+    printf("Codigo da cidade: %s\n", code_1);
+    printf("Nome da cidade: %s\n", name_1);
+    printf("Populacao da cidade: %d\n", population_1);
+    printf("Area da cidade: %.2f\n", area_1);
+    printf("PIB da cidade: %.2f\n", pib_1);
+    printf("Numero de pontos turisticos da cidade: %d\n", touristAttractionAmount_1);
+
+    printf("-------------------------------------\n");
+
+    printf("Cidade 2\n");
     printf("Codigo da cidade: %s\n", code_2);
     printf("Nome da cidade: %s\n", name_2);
     printf("Populacao da cidade: %d\n", population_2);
@@ -77,93 +85,107 @@ int main() {
 
     printf("-------------------------------------\n");
 
-    printf("Escolha qual será o parâmetro de comparação entre as cartas: \n");
-    printf("1 - População\n");
-    printf("2 - Area\n");
-    printf("3 - PIB\n");
-    printf("4 - Pontos Turísticos\n");
-    printf("5 - Densidade Populacional\n");
-    printf("6 - PIB per Capita\n");
+    printf("Escolha qual será o primeiro parâmetro de comparação entre as cartas: \n");
+    for (int i = 0; i < 6; i++) {
+        printf("%d - %s\n", i + 1, menuOptions[i]);
+    }
 
-    int choice;
-    scanf("%d", &choice);
+    int firstChoice, secondChoice;
+    scanf("%d", &firstChoice);
 
-    switch (choice) {
+    if (firstChoice < 1 || firstChoice > 6) {
+        printf("Opção inválida!\n");
+        return 0;
+    }
+
+    printf("Escolha qual será o segundo parâmetro de comparação entre as cartas: \n");
+    for (int i = 0; i < 6; i++) {
+        if (i + 1 == firstChoice) {
+            continue;
+        }
+        printf("%d - %s\n", i + 1, menuOptions[i]);
+    }
+
+    scanf("%d", &secondChoice);
+
+    if (secondChoice < 1 || secondChoice > 6) {
+        printf("Opção inválida!\n");
+        return 0;
+    }
+
+    float firstParameter1, secondParameter1, firstParameter2, secondParameter2;
+
+    switch (firstChoice) {
         case 1:
-            printf("Nome das cidades: %s, %s\n", name_1, name_2);
-            printf("Parâmetro selecionado: População\n");
-            printf("Valores das cartas: %d, %d\n", population_1, population_2);
-            if (population_1 > population_2) {
-                printf("Cidade %s Venceu!\n", name_1);
-            } else if (population_2 > population_1) {
-                printf("Cidade %s Venceu!\n", name_2);
-            } else {
-                printf("Empate!\n");
-            }
+            firstParameter1 = population_1;
+            firstParameter2 = population_2;
             break;
         case 2:
-            printf("Nome das cidades: %s, %s\n", name_1, name_2);
-            printf("Parâmetro selecionado: Area\n");
-            printf("Valores das cartas: %.2f, %.2f\n", area_1, area_2);
-            if (area_1 > area_2) {
-                printf("Cidade %s Venceu!\n", name_1);
-            } else if (area_2 > area_1) {
-                printf("Cidade %s Venceu!\n", name_2);
-            } else {
-                printf("Empate!\n");
-            }
+            firstParameter1 = area_1;
+            firstParameter2 = area_2;
             break;
         case 3:
-            printf("Nome das cidades: %s, %s\n", name_1, name_2);
-            printf("Parâmetro selecionado: PIB\n");
-            printf("Valores das cartas: %.2f, %.2f\n", pib_1, pib_2);
-            if (pib_1 > pib_2) {
-                printf("Cidade %s Venceu!\n", name_1);
-            } else if (pib_2 > pib_1) {
-                printf("Cidade %s Venceu!\n", name_2);
-            } else {
-                printf("EMPATE!\n");
-            }
+            firstParameter1 = pib_1;
+            firstParameter2 = pib_2;
             break;
         case 4:
-            printf("Nome das cidades: %s, %s\n", name_1, name_2);
-            printf("Parâmetro selecionado: Número de pontos turísticos\n");
-            printf("Valores das cartas: %d, %d\n", touristAttractionAmount_1, touristAttractionAmount_2);
-            if (touristAttractionAmount_1 > touristAttractionAmount_2) {
-                printf("Cidade %s Venceu!\n", name_1);
-            } else if (touristAttractionAmount_2 > touristAttractionAmount_1) {
-                printf("Cidade %s Venceu!\n", name_2);
-            } else {
-                printf("EMPATE!\n");
-            }
+            firstParameter1 = touristAttractionAmount_1;
+            firstParameter2 = touristAttractionAmount_2;
             break;
         case 5:
-            printf("Nome das cidades: %s, %s\n", name_1, name_2);
-            printf("Parâmetro selecionado: Densidade Populacional\n");
-            printf("Valores das cartas: %.2f, %.2f\n", populationDensity_1, populationDensity_2);
-            if (populationDensity_1 < populationDensity_2) {
-                printf("Cidade %s Venceu!\n", name_1);
-            } else if (populationDensity_2 > populationDensity_1) {
-                printf("Cidade %s Venceu!\n", name_2);
-            } else {
-                printf("EMPATE!\n");
-            }
+            firstParameter1 = populationDensity_1;
+            firstParameter2 = populationDensity_2;
             break;
         case 6:
-            printf("Nome das cidades: %s, %s\n", name_1, name_2);
-            printf("Parâmetro selecionado: PIB per capita\n");
-            printf("Valores das cartas: %.2f, %.2f\n", pibPerCapita_1, pibPerCapita_2);
-            if (pibPerCapita_1 > pibPerCapita_2) {
-                printf("Cidade %s Venceu!\n", name_1);
-            } else if (pibPerCapita_2 > pibPerCapita_1) {
-                printf("Cidade %s Venceu!\n", name_2);
-            } else {
-                printf("EMPATE!\n");
-            }
+            firstParameter1 = pibPerCapita_1;
+            firstParameter2 = pibPerCapita_2;
             break;
-        default:
-            printf("Opção inválida!\n");
+    }
+
+    switch (secondChoice) {
+        case 1:
+            secondParameter1 = population_1;
+            secondParameter2 = population_2;
             break;
+        case 2:
+            secondParameter1 = area_1;
+            secondParameter2 = area_2;
+            break;
+        case 3:
+            secondParameter1 = pib_1;
+            secondParameter2 = pib_2;
+            break;
+        case 4:
+            secondParameter1 = touristAttractionAmount_1;
+            secondParameter2 = touristAttractionAmount_2;
+            break;
+        case 5:
+            secondParameter1 = populationDensity_1;
+            secondParameter2 = populationDensity_2;
+            break;
+        case 6:
+            secondParameter1 = pibPerCapita_1;
+            secondParameter2 = pibPerCapita_2;
+            break;
+    }
+
+    float parameter1, parameter2;
+
+    parameter1 = firstParameter1 + secondParameter1;
+    parameter2 = firstParameter2 + secondParameter2;
+
+    printf("As cidades eram: %s e %s\n", name_1, name_2);
+    printf("Os atributos escolhidos foram: %s e %s\n", menuOptions[firstChoice - 1], menuOptions[secondChoice - 1]);
+    printf("O valor do primeiro atributo de cada carta foi: %.2f e %.2f\n", firstParameter1, firstParameter2);
+    printf("O valor do segundo atributo de cada carta foi: %.2f e %.2f\n", secondParameter1, secondParameter2);
+    printf("A soma dos atributos de cada carta foram: %.2f e %.2f\n", parameter1, parameter2);
+
+    if (parameter1 > parameter2) {
+        printf("A cidade %s venceu!\n", name_1);
+    } else if (parameter1 < parameter2) {
+        printf("A cidade %s venceu!\n", name_2);
+    } else {
+        printf("As cidades empataram!\n");
     }
 
     return 0;
